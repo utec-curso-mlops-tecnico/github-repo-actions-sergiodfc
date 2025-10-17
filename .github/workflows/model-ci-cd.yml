@@ -21,3 +21,19 @@ jobs:
 
       - name: Preprocess Dataset Train
         run: python src/2-prepare-dataset-test.py
+
+  model-cd:
+    needs: model-ci
+    runs-on: ubuntu-lastest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v5
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.12
+      - name: Install Python Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Deploy Model
+        run: echo "Deploy Model to Azure Machine Learning"
